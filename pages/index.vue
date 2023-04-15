@@ -14,33 +14,32 @@
 </template>
 
 <script setup lang="ts">
-import * as tone from 'tone'
+import * as Tone from 'tone'
 
 const activeNotes = ref(new Set<number>())
 
-let synth: tone.PolySynth
+let synth: Tone.PolySynth
 let started = false
 
-const baseNote = ref(tone.Frequency('C2').toMidi())
+const baseNote = ref(Tone.Frequency('C2').toMidi())
 
 function playNote(midi: number) {
 	if (synth && !activeNotes.value.has(midi)) {
-		synth.triggerAttack(tone.Frequency(midi, 'midi').toFrequency())
+		synth.triggerAttack(Tone.Frequency(midi, 'midi').toFrequency())
 		activeNotes.value.add(midi)
 	}
 }
 
 function onDeactivateNote(midi: number) {
 	if (synth && activeNotes.value.has(midi)) {
-		synth.triggerRelease(tone.Frequency(midi, 'midi').toFrequency())
+		synth.triggerRelease(Tone.Frequency(midi, 'midi').toFrequency())
 		activeNotes.value.delete(midi)
 	}
 }
 
 function onActivateNote(midi: number) {
-	const f = tone.Frequency(midi, 'midi').toFrequency()
 	if (synth && !started) {
-		tone.start().then(() => {
+		Tone.start().then(() => {
 			playNote(midi)
 			started = true
 		})
@@ -50,6 +49,6 @@ function onActivateNote(midi: number) {
 }
 
 onMounted(() => {
-	synth = new tone.PolySynth(tone.Synth).toDestination()
+	synth = new Tone.PolySynth(Tone.Synth).toDestination()
 })
 </script>
