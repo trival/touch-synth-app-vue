@@ -1,5 +1,3 @@
-import { Tone } from 'tone/build/esm/core/Tone'
-
 export type ToneValue = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
 
 export enum ToneHighlight {
@@ -224,28 +222,31 @@ export enum ToneColorType {
 
 export function getScaleToneColor(
 	tone: ToneValue,
+	baseTone: ToneValue,
 	scale: ScaleHighlight,
 ): ToneColor {
+	const highlightTone = mod(tone - baseTone, 12) as ToneValue
 	switch (scale) {
 		case ScaleHighlight.Simple:
 			return {
 				value: tone,
-				highlight: getSimpleColorHighlight(tone),
+				highlight: getSimpleColorHighlight(highlightTone),
 			}
 		case ScaleHighlight.MinorPentatonic:
 			return {
 				value: tone,
-				highlight: getMinorPentatonicHighlight(tone),
+				highlight: getMinorPentatonicHighlight(highlightTone),
 			}
 		case ScaleHighlight.Major:
 			return {
 				value: tone,
-				highlight: getMajorHighlight(tone),
+				highlight: getMajorHighlight(highlightTone),
 			}
 		case ScaleHighlight.Tonic:
 			return {
 				value: tone,
-				highlight: tone === 0 ? ToneHighlight.Strong : ToneHighlight.None,
+				highlight:
+					highlightTone === 0 ? ToneHighlight.Strong : ToneHighlight.None,
 			}
 		case ScaleHighlight.None:
 			return {
@@ -255,12 +256,19 @@ export function getScaleToneColor(
 	}
 }
 
+export function mod(n: number, m: number) {
+	return ((n % m) + m) % m
+}
+
+export const midiToToneValue = (midi: number) => mod(midi, 12) as ToneValue
+
 export function getToneBgColorClass(
 	tone: ToneValue,
+	baseTone: ToneValue,
 	scale: ScaleHighlight,
 	colorVariant: ToneColorType,
 ): string {
-	const toneColor = getScaleToneColor(tone, scale)
+	const toneColor = getScaleToneColor(tone, baseTone, scale)
 	switch (colorVariant) {
 		case ToneColorType.Chromatic:
 			return chromaticBgColorClass(toneColor)
