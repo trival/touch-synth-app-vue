@@ -28,9 +28,11 @@
 </template>
 
 <script setup lang="ts">
-import * as Tone from 'tone'
+import * as ToneImport from 'tone'
 import { ScaleHighlight, ToneColorType, ToneValue } from '~~/utils/tone-colors'
 import { getToneBgColorClass } from '~~/utils/tone-colors'
+
+const Tone: typeof ToneImport = (ToneImport as any).default || ToneImport
 
 type Mode = 'Record' | 'Play'
 
@@ -47,7 +49,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-	baseNote: Tone.Frequency('C3').toMidi(),
+	baseNote: 48, // 'C3 midi number'
 	top: 3,
 	bottom: 1,
 	left: 2,

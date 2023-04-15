@@ -14,11 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import * as Tone from 'tone'
+import * as ToneImport from 'tone'
+
+const Tone: typeof ToneImport = (ToneImport as any).default || ToneImport
 
 const activeNotes = ref(new Set<number>())
 
-let synth: Tone.PolySynth
+let synth: ToneImport.PolySynth
 let started = false
 
 const baseNote = ref(Tone.Frequency('C2').toMidi())
