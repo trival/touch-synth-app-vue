@@ -1,9 +1,15 @@
 <template>
 	<div>
-		<div v-for="row in rows" :key="row[0].toneColor" class="touch-none">
+		<div class="fixed z-10 h-full w-6 bg-gray-500 opacity-30 right-0"></div>
+		<div class="fixed z-10 w-full h-6 bg-gray-500 opacity-30 bottom-0"></div>
+		<div
+			v-for="row in rows"
+			:key="row[0].toneColor"
+			class="touch-none whitespace-nowrap"
+		>
 			<button
 				:class="[
-					'm-[2px] w-16 h-16 rounded-md box-border select-none touch-none',
+					'm-[2px] w-16 h-16 rounded-md box-border select-none touch-none text-gray-800',
 					toneBgClass(cell.toneColor),
 					{ 'border-4 border-red-400': activeNotes[cell.midi] },
 				]"

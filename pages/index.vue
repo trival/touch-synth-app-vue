@@ -21,7 +21,7 @@ const activeNotes = ref(new Set<number>())
 let synth: tone.PolySynth
 let started = false
 
-const baseNote = ref(tone.Frequency('C3').toMidi())
+const baseNote = ref(tone.Frequency('C2').toMidi())
 
 function playNote(midi: number) {
 	if (synth && !activeNotes.value.has(midi)) {
