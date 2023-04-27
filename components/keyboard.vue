@@ -10,7 +10,6 @@
 			<button
 				:class="[
 					'm-[2px] w-16 h-16 rounded-md box-border select-none touch-none text-gray-800',
-					// toneBgClass(cell.toneColor),
 					{ 'border-4 border-red-400': activeNotes[cell.midi] },
 				]"
 				:style="{
@@ -33,7 +32,6 @@
 <script setup lang="ts">
 import * as ToneImport from 'tone'
 import { ScaleHighlight, ToneColorType, ToneValue } from '~~/utils/tone-colors'
-import { getToneBgColorClass } from '~~/utils/tone-colors'
 
 const Tone: typeof ToneImport = (ToneImport as any).default || ToneImport
 
@@ -76,14 +74,6 @@ const activeNotes = computed(() => {
 		return acc
 	}, {} as Record<number, boolean>)
 })
-
-const toneBgClass = (tone: ToneValue) =>
-	getToneBgColorClass(
-		tone,
-		midiToToneValue(props.baseNote),
-		props.scaleHeighlight,
-		props.toneColors,
-	)
 
 const toneBg = (tone: ToneValue) =>
 	getToneBgColor(

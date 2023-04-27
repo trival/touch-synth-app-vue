@@ -11,160 +11,6 @@ export interface ToneColor {
 	highlight: ToneHighlight
 }
 
-export function chromaticBgColorClass(tone: ToneColor): string {
-	switch (tone.value) {
-		case 0:
-			return tone.highlight === ToneHighlight.None
-				? `bg-cyan-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-cyan-300`
-				: `bg-cyan-600`
-		case 1:
-			return tone.highlight === ToneHighlight.None
-				? `bg-blue-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-blue-300`
-				: `bg-blue-500`
-		case 2:
-			return tone.highlight === ToneHighlight.None
-				? `bg-violet-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-violet-300`
-				: `bg-violet-500`
-		case 3:
-			return tone.highlight === ToneHighlight.None
-				? `bg-fuchsia-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-fuchsia-300`
-				: `bg-fuchsia-500`
-		case 4:
-			return tone.highlight === ToneHighlight.None
-				? `bg-pink-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-pink-300`
-				: `bg-pink-500`
-		case 5:
-			return tone.highlight === ToneHighlight.None
-				? `bg-red-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-red-300`
-				: `bg-red-500`
-		case 6:
-			return tone.highlight === ToneHighlight.None
-				? `bg-orange-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-orange-300`
-				: `bg-orange-500`
-		case 7:
-			return tone.highlight === ToneHighlight.None
-				? `bg-amber-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-amber-300`
-				: `bg-amber-600`
-		case 8:
-			return tone.highlight === ToneHighlight.None
-				? `bg-yellow-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-yellow-300`
-				: `bg-yellow-600`
-		case 9:
-			return tone.highlight === ToneHighlight.None
-				? `bg-lime-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-lime-300`
-				: `bg-lime-600`
-		case 10:
-			return tone.highlight === ToneHighlight.None
-				? `bg-green-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-green-300`
-				: `bg-green-600`
-		case 11:
-			return tone.highlight === ToneHighlight.None
-				? `bg-teal-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-teal-300`
-				: `bg-teal-600`
-	}
-}
-
-export function circleOfFithsBgColorClass(tone: ToneColor): string {
-	switch (tone.value) {
-		case 0:
-			return tone.highlight === ToneHighlight.None
-				? `bg-cyan-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-cyan-300`
-				: `bg-cyan-600`
-		case 7:
-			return tone.highlight === ToneHighlight.None
-				? `bg-blue-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-blue-300`
-				: `bg-blue-500`
-		case 2:
-			return tone.highlight === ToneHighlight.None
-				? `bg-violet-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-violet-300`
-				: `bg-violet-500`
-		case 9:
-			return tone.highlight === ToneHighlight.None
-				? `bg-fuchsia-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-fuchsia-300`
-				: `bg-fuchsia-500`
-		case 4:
-			return tone.highlight === ToneHighlight.None
-				? `bg-pink-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-pink-300`
-				: `bg-pink-500`
-		case 11:
-			return tone.highlight === ToneHighlight.None
-				? `bg-red-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-red-300`
-				: `bg-red-500`
-		case 6:
-			return tone.highlight === ToneHighlight.None
-				? `bg-orange-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-orange-300`
-				: `bg-orange-500`
-		case 1:
-			return tone.highlight === ToneHighlight.None
-				? `bg-amber-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-amber-300`
-				: `bg-amber-600`
-		case 8:
-			return tone.highlight === ToneHighlight.None
-				? `bg-yellow-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-yellow-300`
-				: `bg-yellow-600`
-		case 3:
-			return tone.highlight === ToneHighlight.None
-				? `bg-lime-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-lime-300`
-				: `bg-lime-600`
-		case 10:
-			return tone.highlight === ToneHighlight.None
-				? `bg-green-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-green-300`
-				: `bg-green-600`
-		case 5:
-			return tone.highlight === ToneHighlight.None
-				? `bg-teal-100`
-				: tone.highlight === ToneHighlight.Soft
-				? `bg-teal-300`
-				: `bg-teal-600`
-	}
-}
-
 export function getSimpleColorHighlight(tone: ToneValue): ToneHighlight {
 	switch (tone) {
 		case 0:
@@ -262,21 +108,6 @@ export function mod(n: number, m: number) {
 
 export const midiToToneValue = (midi: number) => mod(midi, 12) as ToneValue
 
-export function getToneBgColorClass(
-	tone: ToneValue,
-	baseTone: ToneValue,
-	scale: ScaleHighlight,
-	colorVariant: ToneColorType,
-): string {
-	const toneColor = getScaleToneColor(tone, baseTone, scale)
-	switch (colorVariant) {
-		case ToneColorType.Chromatic:
-			return chromaticBgColorClass(toneColor)
-		case ToneColorType.CircleOfFiths:
-			return circleOfFithsBgColorClass(toneColor)
-	}
-}
-
 export function chromaticBgColor(tone: ToneColor): string {
 	return `hsl(${((tone.value + 6) % 12) / 12}turn ${Math.floor(
 		(100 * tone.highlight) / 3,
@@ -285,9 +116,11 @@ export function chromaticBgColor(tone: ToneColor): string {
 
 export function circleOfFithsBgColor(tone: ToneColor): string {
 	const value = tone.value % 2 === 0 ? (tone.value + 6) % 12 : tone.value
-	return `hsl(${((value + 6) % 12) / 12}turn ${Math.floor(
-		(100 * tone.highlight) / 3,
-	)}% ${Math.floor(100 - (100 * tone.highlight) / 3)}%)`
+	const saturation = Math.floor((100 * (tone.highlight + 1)) / 3)
+	const lightness = Math.floor((4 - tone.highlight) * 22)
+	// const lightness = 50
+	// const saturation = 90
+	return `hsl(${((value + 6) % 12) / 12}turn ${saturation}% ${lightness}%)`
 }
 
 export function getToneBgColor(
