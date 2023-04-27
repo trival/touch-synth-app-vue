@@ -292,10 +292,11 @@ export function circleOfFithsBgColor(tone: ToneColor): string {
 
 export function getToneBgColor(
 	tone: ToneValue,
+	baseTone: ToneValue,
 	scale: ScaleHighlight,
 	colorVariant: ToneColorType,
 ): string {
-	const toneColor = getScaleToneColor(tone, scale)
+	const toneColor = getScaleToneColor(tone, baseTone, scale)
 	switch (colorVariant) {
 		case ToneColorType.Chromatic:
 			return chromaticBgColor(toneColor)

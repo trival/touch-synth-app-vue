@@ -10,9 +10,12 @@
 			<button
 				:class="[
 					'm-[2px] w-16 h-16 rounded-md box-border select-none touch-none text-gray-800',
-					toneBgClass(cell.toneColor),
+					// toneBgClass(cell.toneColor),
 					{ 'border-4 border-red-400': activeNotes[cell.midi] },
 				]"
+				:style="{
+					backgroundColor: toneBg(cell.toneColor),
+				}"
 				v-for="cell in row"
 				:key="cell.toneColor"
 				@pointerdown.prevent.stop="onPointerDown(cell.midi)"
@@ -76,6 +79,14 @@ const activeNotes = computed(() => {
 
 const toneBgClass = (tone: ToneValue) =>
 	getToneBgColorClass(
+		tone,
+		midiToToneValue(props.baseNote),
+		props.scaleHeighlight,
+		props.toneColors,
+	)
+
+const toneBg = (tone: ToneValue) =>
+	getToneBgColor(
 		tone,
 		midiToToneValue(props.baseNote),
 		props.scaleHeighlight,
