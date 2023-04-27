@@ -3,9 +3,9 @@ import { Tone } from 'tone/build/esm/core/Tone'
 export type ToneValue = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
 
 export enum ToneHighlight {
-	None = 1,
-	Soft = 3,
-	Strong = 5,
+	None,
+	Soft,
+	Strong,
 }
 
 export interface ToneColor {
@@ -266,5 +266,32 @@ export function getToneBgColorClass(
 			return chromaticBgColorClass(toneColor)
 		case ToneColorType.CircleOfFiths:
 			return circleOfFithsBgColorClass(toneColor)
+	}
+}
+
+export function chromaticBgColor(tone: ToneColor): string {
+	return `hsl(${((tone.value + 6) % 12) / 12}turn ${Math.floor(
+		(100 * tone.highlight) / 3,
+	)}% ${Math.floor(100 - (100 * tone.highlight) / 3)}%)`
+}
+
+export function circleOfFithsBgColor(tone: ToneColor): string {
+	const value = tone.value % 2 === 0 ? (tone.value + 6) % 12 : tone.value
+	return `hsl(${((value + 6) % 12) / 12}turn ${Math.floor(
+		(100 * tone.highlight) / 3,
+	)}% ${Math.floor(100 - (100 * tone.highlight) / 3)}%)`
+}
+
+export function getToneBgColor(
+	tone: ToneValue,
+	scale: ScaleHighlight,
+	colorVariant: ToneColorType,
+): string {
+	const toneColor = getScaleToneColor(tone, scale)
+	switch (colorVariant) {
+		case ToneColorType.Chromatic:
+			return chromaticBgColor(toneColor)
+		case ToneColorType.CircleOfFiths:
+			return circleOfFithsBgColor(toneColor)
 	}
 }
