@@ -108,19 +108,21 @@ export function mod(n: number, m: number) {
 
 export const midiToToneValue = (midi: number) => mod(midi, 12) as ToneValue
 
+export function toHSL(hue: number, highlight: ToneHighlight): string {
+	const saturation = Math.floor((100 * (highlight + 1)) / 3)
+	const lightness = Math.floor((4 - highlight) * 22)
+	return `hsl(${hue}turn ${saturation}% ${lightness}%)`
+}
+
 export function chromaticBgColor(tone: ToneColor): string {
-	return `hsl(${((tone.value + 6) % 12) / 12}turn ${Math.floor(
-		(100 * tone.highlight) / 3,
-	)}% ${Math.floor(100 - (100 * tone.highlight) / 3)}%)`
+	const hue = ((tone.value + 6) % 12) / 12
+	return toHSL(hue, tone.highlight)
 }
 
 export function circleOfFithsBgColor(tone: ToneColor): string {
 	const value = tone.value % 2 === 0 ? (tone.value + 6) % 12 : tone.value
-	const saturation = Math.floor((100 * (tone.highlight + 1)) / 3)
-	const lightness = Math.floor((4 - tone.highlight) * 22)
-	// const lightness = 50
-	// const saturation = 90
-	return `hsl(${((value + 6) % 12) / 12}turn ${saturation}% ${lightness}%)`
+	const hue = value / 12
+	return toHSL(hue, tone.highlight)
 }
 
 export function getToneBgColor(
